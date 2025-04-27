@@ -64,22 +64,22 @@ echo "::endgroup::"
 
 ## Setup Authentication
 
-if [[ -z "${INPUT_SSH_KEY}" ]];then
-    echo "::group::Copying SSH Key to Remote Host"
-    ssh-keygen -q -f "${SSH_DIR}/id_rsa" -N "" -C "docker-stack-deploy-action"
-    eval "$(ssh-agent -s)"
-    ssh-add "${SSH_DIR}/id_rsa"
-    sshpass -eINPUT_PASS \
-        ssh-copy-id -i "${SSH_DIR}/id_rsa" -o ConnectTimeout=30 \
-            -p "${INPUT_PORT}" "${INPUT_USER}@${INPUT_HOST}"
-else
-    echo "::group::Adding SSH Key to SSH Agent"
-    echo "${INPUT_SSH_KEY}" > "${SSH_DIR}/id_rsa"
-    chmod 0600 "${SSH_DIR}/id_rsa"
-    eval "$(ssh-agent -s)"
-    ssh-add "${SSH_DIR}/id_rsa"
-fi
-echo "::endgroup::"
+#if [[ -z "${INPUT_SSH_KEY}" ]];then
+#    echo "::group::Copying SSH Key to Remote Host"
+#    ssh-keygen -q -f "${SSH_DIR}/id_rsa" -N "" -C "docker-stack-deploy-action"
+#    eval "$(ssh-agent -s)"
+#    ssh-add "${SSH_DIR}/id_rsa"
+#    sshpass -eINPUT_PASS \
+#        ssh-copy-id -i "${SSH_DIR}/id_rsa" -o ConnectTimeout=30 \
+#            -p "${INPUT_PORT}" "${INPUT_USER}@${INPUT_HOST}"
+#else
+#    echo "::group::Adding SSH Key to SSH Agent"
+#    echo "${INPUT_SSH_KEY}" > "${SSH_DIR}/id_rsa"
+#    chmod 0600 "${SSH_DIR}/id_rsa"
+#    eval "$(ssh-agent -s)"
+#    ssh-add "${SSH_DIR}/id_rsa"
+#fi
+#echo "::endgroup::"
 
 trap cleanup_trap EXIT HUP INT QUIT PIPE TERM
 
