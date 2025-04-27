@@ -37,6 +37,10 @@ inputs:
   ssh_key:
     description: "Remote SSH Key File"
     required: false
+  tailscale:
+    description: "Allow Tailscale to handle ssh"
+    required: false
+    default: "false"
   env_file:
     description: "Environment File"
     required: false
